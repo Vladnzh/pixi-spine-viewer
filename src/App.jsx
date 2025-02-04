@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import { Application, BaseTexture, Graphics, Text } from "pixi.js";
 import { Spine, TextureAtlas } from "pixi-spine";
-import { AtlasAttachmentLoader, SkeletonJson } from "@pixi-spine/runtime-4.0";
+import { AtlasAttachmentLoader, SkeletonJson } from "@pixi-spine/runtime-4.1";
 import { getStyles } from "./styles";
 
 function modifyAtlasText(atlasText, fileURLs) {
