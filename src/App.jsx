@@ -1,4 +1,3 @@
-// App.js
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import { Application, BaseTexture, Graphics, Text } from "pixi.js";
 import { Spine, TextureAtlas } from "pixi-spine";

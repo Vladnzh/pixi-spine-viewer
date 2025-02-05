@@ -1,4 +1,3 @@
-// styles.js
 export const baseTheme = {
 	light: {
 		background: "#f2f2f2",
