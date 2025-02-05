@@ -19,10 +19,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - name: Clean install dependencies
-        run: |
-          rm -rf node_modules package-lock.json
-          npm install --omit=optional
+      - run: npm ci --omit=optional
       - run: npm run build --if-present
       - run: npm test
 
@@ -37,10 +34,7 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-      - name: Clean install dependencies
-        run: |
-          rm -rf node_modules package-lock.json
-          npm install --omit=optional
+      - run: npm ci --omit=optional
       - run: npm run build
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
