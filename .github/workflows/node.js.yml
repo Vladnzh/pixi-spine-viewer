@@ -19,6 +19,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+      - name: Disable optional dependencies
+        run: npm config set optional false
       - run: npm ci
       - run: npm run build --if-present
       - run: npm test
@@ -34,6 +36,8 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
+      - name: Disable optional dependencies
+        run: npm config set optional false
       - run: npm ci
       - run: npm run build
       - name: Deploy to GitHub Pages
