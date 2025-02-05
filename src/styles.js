@@ -1,3 +1,4 @@
+// styles.js
 export const baseTheme = {
 	light: {
 		background: "#f2f2f2",
@@ -186,6 +187,11 @@ export const getStyles = (theme) => {
 			alignItems: "center",
 			justifyContent: "space-between",
 			paddingBottom: `${scaleFactor * 4}px`
+		},
+		attachedSlotControls: {
+			display: "flex",
+			alignItems: "center",
+			gap: `${scaleFactor * 8}px`
 		},
 		unattachedButton: {
 			padding: `${scaleFactor * 4}px ${scaleFactor * 8}px`,

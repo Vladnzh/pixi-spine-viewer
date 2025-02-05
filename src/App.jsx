@@ -1,3 +1,4 @@
+// App.js
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import { Application, BaseTexture, Graphics, Text } from "pixi.js";
 import { Spine, TextureAtlas } from "pixi-spine";
@@ -89,8 +90,7 @@ function App() {
 			const circle = attachedCirclesRef.current[slotName];
 			const slot = spineInstanceRef.current.skeleton.findSlot(slotName);
 			if (slot && slot.bone) {
-				circle.x = slot.bone.worldX;
-				circle.y = slot.bone.worldY;
+				spineInstanceRef.current.slotContainers[slot.data.index].addChild(circle);
 			}
 		}
 	}, []);
@@ -316,6 +316,12 @@ function App() {
 		}
 	};
 
+	const handleSlotVisibilityChange = (slotName, visible) => {
+		if (attachedCirclesRef.current[slotName]) {
+			attachedCirclesRef.current[slotName].visible = visible;
+		}
+	};
+
 	const addCircleToSlot = (slotName) => {
 		if (!spineInstanceRef.current) return;
 		if (attachedCirclesRef.current[slotName]) return;
@@ -336,7 +342,11 @@ function App() {
 		});
 		text.anchor.set(0.5);
 		circle.addChild(text);
-		spineInstanceRef.current.addChild(circle);
+		for (const sName in attachedCirclesRef.current) {
+			const c = attachedCirclesRef.current[sName];
+			const slot = spineInstanceRef.current.skeleton.findSlot(sName);
+			spineInstanceRef.current.slotContainers[slot.data.index].addChild(c);
+		}
 		attachedCirclesRef.current[slotName] = circle;
 		setAttachedSlots((prev) => (prev.includes(slotName) ? prev : [...prev, slotName]));
 	};
@@ -433,9 +443,16 @@ function App() {
 							attachedSlots.map((slotName, idx) => (
 								<div key={idx} style={styles.attachedSlotItem}>
 									<span>{slotName}</span>
-									<button style={styles.deleteButton} onClick={() => removeCircleFromSlot(slotName)}>
-										Delete
-									</button>
+									<div style={styles.attachedSlotControls}>
+										<input
+											type="checkbox"
+											defaultChecked={true}
+											onChange={(e) => handleSlotVisibilityChange(slotName, e.target.checked)}
+										/>
+										<button style={styles.deleteButton} onClick={() => removeCircleFromSlot(slotName)}>
+											Delete
+										</button>
+									</div>
 								</div>
 							))}
 					</div>
